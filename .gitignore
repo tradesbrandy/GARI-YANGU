@@ -1,0 +1,18 @@
+
+# Node dependencies
+node_modules/
+
+# React/Vite build files
+dist/
+build/
+
+# Python virtual environments
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# macOS
+.DS_Store

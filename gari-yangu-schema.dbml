@@ -1,0 +1,213 @@
+// Gari Yangu - database schema
+// Paste into https://dbdiagram.io (Go to App -> paste -> diagram appears)
+
+Project gari_yangu {
+  database_type: 'PostgreSQL'
+  Note: 'Reverse car marketplace: buyers post requests, verified dealers send offers.'
+}
+
+// ---------- ENUMS ----------
+
+Enum user_role {
+  buyer
+  seller
+  dealer
+  admin
+}
+
+Enum dealer_status {
+  pending
+  approved
+  rejected
+}
+
+Enum fuel_type {
+  petrol
+  diesel
+  hybrid
+  electric
+}
+
+Enum transmission_type {
+  manual
+  automatic
+}
+
+Enum body_type {
+  sedan
+  suv
+  hatchback
+  pickup
+  van
+  wagon
+  coupe
+}
+
+Enum listing_status {
+  draft
+  active
+  sold
+  hidden
+}
+
+Enum request_status {
+  open
+  fulfilled
+  closed
+}
+
+Enum offer_status {
+  pending
+  accepted
+  declined
+  withdrawn
+}
+
+// ---------- ACCOUNTS ----------
+
+Table users {
+  id int [pk, increment]
+  email varchar(254) [unique, not null]
+  password varchar(128) [not null]
+  full_name varchar(150) [not null]
+  phone varchar(20)
+  role user_role [not null, default: 'buyer']
+  county varchar(50) [note: 'One of the 47 Kenyan counties (choices field)']
+  is_active boolean [not null, default: true]
+  created_at timestamp [not null, default: `now()`]
+}
+
+Table dealer_profiles {
+  id int [pk, increment]
+  user_id int [unique, not null, note: 'One profile per user']
+  business_name varchar(150) [not null]
+  kra_pin varchar(20) [unique, not null]
+  county varchar(50) [not null]
+  address varchar(255)
+  status dealer_status [not null, default: 'pending']
+  rejection_reason text
+  verified_at timestamp
+  created_at timestamp [not null, default: `now()`]
+}
+
+// ---------- CARS ----------
+
+Table makes {
+  id int [pk, increment]
+  name varchar(60) [unique, not null]
+}
+
+Table car_models {
+  id int [pk, increment]
+  make_id int [not null]
+  name varchar(80) [not null]
+  body_type body_type
+
+  indexes {
+    (make_id, name) [unique]
+  }
+}
+
+Table listings {
+  id int [pk, increment]
+  owner_id int [not null]
+  car_model_id int [not null]
+  title varchar(200) [not null]
+  year smallint [not null]
+  price decimal(12,2) [not null, note: 'KES']
+  mileage_km int
+  fuel fuel_type [not null]
+  transmission transmission_type [not null]
+  body_type body_type
+  color varchar(30)
+  engine_cc int
+  county varchar(50) [not null]
+  description text
+  status listing_status [not null, default: 'draft']
+  created_at timestamp [not null, default: `now()`]
+
+  indexes {
+    price
+    year
+    county
+    status
+  }
+}
+
+Table listing_images {
+  id int [pk, increment]
+  listing_id int [not null]
+  image varchar(255) [not null, note: 'File path / URL']
+  is_primary boolean [not null, default: false]
+  position smallint [not null, default: 0]
+}
+
+// ---------- OFFERS ----------
+
+Table buyer_requests {
+  id int [pk, increment]
+  buyer_id int [not null]
+  make_id int
+  car_model_id int
+  min_year smallint
+  max_price decimal(12,2)
+  fuel fuel_type
+  body_type body_type
+  county varchar(50)
+  notes text
+  status request_status [not null, default: 'open']
+  expires_at timestamp
+  created_at timestamp [not null, default: `now()`]
+
+  indexes {
+    status
+    county
+  }
+}
+
+Table offers {
+  id int [pk, increment]
+  request_id int [not null]
+  dealer_id int [not null]
+  listing_id int [note: 'Optional: a car from the dealer stock']
+  price decimal(12,2) [not null]
+  message text
+  status offer_status [not null, default: 'pending']
+  created_at timestamp [not null, default: `now()`]
+
+  indexes {
+    (request_id, dealer_id) [unique, note: 'One offer per dealer per request']
+  }
+}
+
+Table reviews {
+  id int [pk, increment]
+  reviewer_id int [not null]
+  dealer_id int [not null]
+  offer_id int [unique, note: 'Links the review to a real deal']
+  rating smallint [not null, note: '1 to 5']
+  comment text
+  created_at timestamp [not null, default: `now()`]
+}
+
+// ---------- RELATIONSHIPS ----------
+
+Ref: dealer_profiles.user_id - users.id
+
+Ref: car_models.make_id > makes.id
+
+Ref: listings.owner_id > users.id
+Ref: listings.car_model_id > car_models.id
+Ref: listing_images.listing_id > listings.id [delete: cascade]
+
+Ref: buyer_requests.buyer_id > users.id
+Ref: buyer_requests.make_id > makes.id
+Ref: buyer_requests.car_model_id > car_models.id
+
+Ref: offers.request_id > buyer_requests.id [delete: cascade]
+Ref: offers.dealer_id > users.id
+Ref: offers.listing_id > listings.id
+
+Ref: reviews.reviewer_id > users.id
+Ref: reviews.dealer_id > users.id
+Ref: reviews.offer_id - offers.id

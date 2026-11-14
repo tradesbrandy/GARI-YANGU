@@ -1,0 +1,49 @@
+// Mock data shaped after gari-yangu-schema.dbml (listings, makes, counties).
+// Replaced by real API calls in a later part.
+
+export const MAKES = [
+  'Toyota', 'Mazda', 'Subaru', 'Nissan', 'Honda', 'Volkswagen',
+  'Mercedes-Benz', 'Isuzu', 'Suzuki', 'BMW',
+]
+
+export const BODY_TYPES = ['suv', 'sedan', 'hatchback', 'pickup', 'van', 'wagon', 'coupe']
+export const FUELS = ['petrol', 'diesel', 'hybrid', 'electric']
+export const TRANSMISSIONS = ['manual', 'automatic']
+export const COUNTIES = ['Nairobi', 'Mombasa', 'Kisumu', 'Nakuru', 'Kiambu', 'Machakos', 'Eldoret', 'Nyeri']
+
+export const COLORS = [
+  { name: 'White', hex: '#e9edf2' }, { name: 'Silver', hex: '#b6bcc4' }, { name: 'Grey', hex: '#6b7480' },
+  { name: 'Black', hex: '#1c1f26' }, { name: 'Navy', hex: '#1f2a44' }, { name: 'Blue', hex: '#27506e' },
+  { name: 'Red', hex: '#9b1c2c' }, { name: 'Orange', hex: '#d6402f' },
+]
+
+export const CARS = [
+  { id: 1, make: 'Toyota', model: 'Land Cruiser Prado TX', year: 2018, price: 7450000, mileage_km: 62000, fuel: 'diesel', transmission: 'automatic', body_type: 'suv', color: '#2b3a4f', county: 'Nairobi', dealer: 'Prestige Motors', verified: true },
+  { id: 2, make: 'Toyota', model: 'Harrier Premium', year: 2017, price: 3650000, mileage_km: 54000, fuel: 'petrol', transmission: 'automatic', body_type: 'suv', color: '#e9edf2', county: 'Nairobi', dealer: 'Capital Auto Hub', verified: true },
+  { id: 3, make: 'Mazda', model: 'CX-5 Skyactiv', year: 2016, price: 2780000, mileage_km: 71000, fuel: 'diesel', transmission: 'automatic', body_type: 'suv', color: '#9b1c2c', county: 'Kiambu', dealer: 'Eastlands Motors', verified: true },
+  { id: 4, make: 'Subaru', model: 'Forester XT', year: 2015, price: 2350000, mileage_km: 88000, fuel: 'petrol', transmission: 'automatic', body_type: 'suv', color: '#27506e', county: 'Nakuru', dealer: 'Rift Cars Ltd', verified: true },
+  { id: 5, make: 'Nissan', model: 'X-Trail 20X', year: 2016, price: 2290000, mileage_km: 79000, fuel: 'petrol', transmission: 'automatic', body_type: 'suv', color: '#6b7480', county: 'Mombasa', dealer: 'Coast Motors', verified: true },
+  { id: 6, make: 'Honda', model: 'Fit Hybrid', year: 2017, price: 1380000, mileage_km: 49000, fuel: 'hybrid', transmission: 'automatic', body_type: 'hatchback', color: '#c9d3dd', county: 'Nairobi', dealer: 'Capital Auto Hub', verified: true },
+  { id: 7, make: 'Toyota', model: 'Axio G', year: 2016, price: 1520000, mileage_km: 66000, fuel: 'petrol', transmission: 'automatic', body_type: 'sedan', color: '#f2f2f2', county: 'Machakos', dealer: 'Kilimani Cars', verified: false },
+  { id: 8, make: 'Volkswagen', model: 'Golf TSI Highline', year: 2016, price: 2150000, mileage_km: 58000, fuel: 'petrol', transmission: 'automatic', body_type: 'hatchback', color: '#1f2a44', county: 'Nairobi', dealer: 'Euro Motors Kenya', verified: true },
+  { id: 9, make: 'Mercedes-Benz', model: 'C200 Avantgarde', year: 2015, price: 3450000, mileage_km: 72000, fuel: 'petrol', transmission: 'automatic', body_type: 'sedan', color: '#3d4350', county: 'Nairobi', dealer: 'Euro Motors Kenya', verified: true },
+  { id: 10, make: 'Isuzu', model: 'D-Max V-Cross', year: 2019, price: 4350000, mileage_km: 41000, fuel: 'diesel', transmission: 'manual', body_type: 'pickup', color: '#e8e8e8', county: 'Eldoret', dealer: 'North Rift Motors', verified: true },
+  { id: 11, make: 'Toyota', model: 'Hilux Double Cab', year: 2018, price: 4850000, mileage_km: 55000, fuel: 'diesel', transmission: 'manual', body_type: 'pickup', color: '#b6bcc4', county: 'Kisumu', dealer: 'Lakeside Autos', verified: true },
+  { id: 12, make: 'Suzuki', model: 'Swift RS', year: 2017, price: 1120000, mileage_km: 44000, fuel: 'petrol', transmission: 'manual', body_type: 'hatchback', color: '#d6402f', county: 'Nyeri', dealer: 'Mt Kenya Cars', verified: false },
+  { id: 13, make: 'BMW', model: 'X3 xDrive20d', year: 2016, price: 4200000, mileage_km: 69000, fuel: 'diesel', transmission: 'automatic', body_type: 'suv', color: '#1c1f26', county: 'Nairobi', dealer: 'Prestige Motors', verified: true },
+  { id: 14, make: 'Toyota', model: 'Noah Voxy', year: 2015, price: 1850000, mileage_km: 93000, fuel: 'petrol', transmission: 'automatic', body_type: 'van', color: '#dfe3e8', county: 'Mombasa', dealer: 'Coast Motors', verified: true },
+  { id: 15, make: 'Mazda', model: 'Demio', year: 2018, price: 1090000, mileage_km: 38000, fuel: 'petrol', transmission: 'automatic', body_type: 'hatchback', color: '#8a1f2b', county: 'Kiambu', dealer: 'Eastlands Motors', verified: true },
+]
+
+export const REVIEWS = [
+  { name: 'Wanjiru K.', county: 'Nairobi', rating: 5, text: 'I posted my request for a Harrier on Monday and had four offers by Wednesday. Saved over KES 200,000 versus the first quote I got.' },
+  { name: 'Brian O.', county: 'Kisumu', rating: 5, text: 'Knowing every dealer is KRA-verified made it easy to trust. No more driving around yards all weekend.' },
+  { name: 'Amina H.', county: 'Mombasa', rating: 4, text: 'Simple and clear. Dealers came to me with prices instead of me chasing them. Will use it again.' },
+]
+
+export const FAQS = [
+  { q: 'Is Gari Yangu free for buyers?', a: 'Yes. Posting a request and receiving offers is completely free. You only pay the dealer if you decide to buy.' },
+  { q: 'How are dealers verified?', a: 'Every dealer submits their business name and KRA PIN, and our team approves each profile before they can send offers.' },
+  { q: 'How many offers will I get?', a: 'It depends on the car and your county, but most requests receive several offers within a few days. Your request stays open until you close it or it expires.' },
+  { q: 'Do I have to accept an offer?', a: 'No. Compare offers at your own pace, accept the one you like, or decline them all.' },
+]
